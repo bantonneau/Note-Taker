@@ -9,3 +9,14 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html")
+});
+
+app.get("/notes", (req, res) => {
+    res.sendFile(__dirname + "/public/notes.html")
+});
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
