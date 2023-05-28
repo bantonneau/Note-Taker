@@ -30,7 +30,7 @@ npm install
 
 You can access the app deployed with herokju at the following link:
 
-https://note-taker-by-ben-antonneau.herokuapp.com/notes
+https://note-taker-by-ben-antonneau.herokuapp.com/
 
 To use the NoteTaker App locally, follow these steps:
 
