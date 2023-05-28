@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(express.static("public"));
@@ -12,18 +12,16 @@ app.use(express.urlencoded({ extended: true }));
 const dbPath = path.join(__dirname, "db", "db.json");
 
 
-// Function to read the notes from the db.json file
 function readNotes() {
     const data = fs.readFileSync(dbPath, "utf8");
     return JSON.parse(data);
 }
 
-// Function to write the notes to the db.json file
 function writeNotes(notes) {
     fs.writeFileSync(dbPath, JSON.stringify(notes, null, 2));
 }
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
     res.sendFile(__dirname + "/public/index.html")
 });
 
