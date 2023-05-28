@@ -23,12 +23,17 @@ function writeNotes(notes) {
     fs.writeFileSync(dbPath, JSON.stringify(notes, null, 2));
 }
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html")
 });
 
 app.get("/notes", (req, res) => {
     res.sendFile(__dirname + "/public/notes.html")
+});
+
+app.get("/api/notes", (req, res) => {
+    const notes = readNotes();
+    res.json(notes);
 });
 
 app.post("/api/notes", (req, res) => {
@@ -38,7 +43,16 @@ app.post("/api/notes", (req, res) => {
     notes.push(newNote);
     writeNotes(notes);
     res.json(newNote);
-  });
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+    const noteId = req.params.id;
+    const notes = readNotes();
+    const updatedNotes = notes.filter((note) => note.id !== noteId);
+    writeNotes(updatedNotes);
+    res.json({ success: true });
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
