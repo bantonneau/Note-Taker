@@ -25,7 +25,7 @@ app.get("/notes", (req, res) => {
     res.sendFile(__dirname + "/public/notes.html")
 });
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
     res.sendFile(__dirname + "/public/index.html")
 });
 
@@ -51,6 +51,9 @@ app.delete('/api/notes/:id', (req, res) => {
     res.json({ success: true });
 });
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+});
 
 app.listen(process.env.PORT || PORT, () => {
     console.log(`Server listening on port ${PORT}`);
